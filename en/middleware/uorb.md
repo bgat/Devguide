@@ -49,21 +49,33 @@ the same process as it's later published.
 
 > **Note** The `listener` command is only available on Pixracer (FMUv4) and Linux / OS X.
 
-To list all topics, list the file handles:
+To list all the topics, use the `list_topics` command:
 
 ```sh
-ls /obj
+pxh> list_topics
+...
+INFO  [drivers__device]    /obj/sensor_accel0
+INFO  [drivers__device]    /obj/sensor_accel1
+INFO  [drivers__device]    /obj/sensor_baro0
+...
 ```
 
-To listen to the content of one topic for 5 messages, run the listener:
+On that don't have `list_topics` enabled, you can instead list the pseudo-file handles associated with each topic:
 
 ```sh
-listener sensor_accel 5
-```
+pxh> ls /obj
+...
+/obj/sensor_accel0
+/obj/sensor_accel1
+/obj/sensor_baro0
+...
+I```
 
-The output is n-times the content of the topic:
+To listen to the content of one topic for 5 messages, run the `listener`. The output is the next `n` updates of the topic:
 
 ```sh
+pxh> listener sensor_accel 5
+...
 TOPIC: sensor_accel #3
 timestamp: 84978861
 integral_dt: 4044
@@ -98,9 +110,10 @@ scaling: 0
 
 ### urb top Command
 
-The command `uorb top` shows the publishing frequency of each topic in real-time:
+The command `uorb top` shows the publishing frequency of each topic in real-time (press any key to end the display):
 
 ```sh
+pxh> uorb top
 update: 1s, num topics: 77
 TOPIC NAME                        INST #SUB #MSG #LOST #QSIZE
 actuator_armed                       0    6    4     0 1
